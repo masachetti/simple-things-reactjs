@@ -1,8 +1,9 @@
 import './App.css';
+import BinToDec from './pages/BinToDec';
 
 function App() {
   return (
-    <>Hello World</>
+    <BinToDec/>
   );
 }
 
