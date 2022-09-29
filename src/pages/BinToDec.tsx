@@ -1,33 +1,16 @@
 import React, { useState } from "react";
+import { parseToBinary, parseToDecimal } from "../utils/parsers";
 
-function parseToDecimal(binaryValue: string) {
-  let reversedBits = binaryValue.split("").reverse();
-  let decimal = 0;
-  for (const [bitIndex, bit] of reversedBits.entries()) {
-    let intBit = parseInt(bit);
-    decimal += bitIndex ? bitIndex ** 2 * intBit : intBit;
-  }
-  return decimal;
-}
-
-function parseToBinary(value: string) {
-  let decimalValue = parseInt(value);
-  let bitArray: number[] = [];
-  while (decimalValue > 1){
-    bitArray.push(decimalValue%2);
-    decimalValue = Math.floor(decimalValue/2);
-  }
-  bitArray.push(decimalValue);
-  return bitArray.reverse().join('')
-}
-
-export default function BinToDec() {
+const BinToDec: React.FC = () => {
   const [value, setValue] = useState({
     currentValue: "0",
     valueFormat: "dec",
   });
 
-  const handleValueChange = function (e: React.ChangeEvent<HTMLInputElement>, format: string) {
+  const handleValueChange = function (
+    e: React.ChangeEvent<HTMLInputElement>,
+    format: string
+  ) {
     setValue({
       currentValue: e.target.value,
       valueFormat: format,
@@ -58,4 +41,6 @@ export default function BinToDec() {
       />
     </div>
   );
-}
+};
+
+export default BinToDec;
