@@ -1,12 +1,9 @@
 import React from "react";
+import { Time } from "../types/types";
 import { parseTimeToString } from "../utils/parsers";
 
-interface TimerProps {
-  minutes: number;
-  seconds: number;
-}
 
-const TimerDisplay: React.FC<TimerProps> = ({ minutes, seconds }) => {
+const TimerDisplay: React.FC<Time> = ({ minutes, seconds }) => {
   const timeRepr = parseTimeToString({ minutes, seconds });
   return (
     <span>
