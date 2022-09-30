@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { parseToBinary, parseToDecimal } from "../utils/parsers";
+import { parseStringToBinary, parseBinaryToDecimal } from "../utils/parsers";
 
 const BinToDec: React.FC = () => {
   const [value, setValue] = useState({
@@ -18,9 +18,9 @@ const BinToDec: React.FC = () => {
   };
   const { currentValue, valueFormat } = value;
   const binValue =
-    valueFormat === "bin" ? currentValue : parseToBinary(currentValue);
+    valueFormat === "bin" ? currentValue : parseStringToBinary(currentValue);
   const decValue =
-    valueFormat === "dec" ? currentValue : parseToDecimal(currentValue);
+    valueFormat === "dec" ? currentValue : parseBinaryToDecimal(currentValue);
 
   return (
     <div>

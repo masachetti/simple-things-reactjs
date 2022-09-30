@@ -1,5 +1,5 @@
 import React from "react";
-import { convertToTimeString } from "../utils/utils";
+import { parseTimeToString } from "../utils/parsers";
 
 interface TimerProps {
   minutes: number;
@@ -7,7 +7,7 @@ interface TimerProps {
 }
 
 const TimerDisplay: React.FC<TimerProps> = ({ minutes, seconds }) => {
-  const timeRepr = convertToTimeString({ minutes, seconds });
+  const timeRepr = parseTimeToString({ minutes, seconds });
   return (
     <span>
       {timeRepr}

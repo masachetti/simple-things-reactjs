@@ -1,5 +1,6 @@
+import { Time } from "../types/types";
 
-function parseToDecimal(binaryValue: string) {
+function parseBinaryToDecimal(binaryValue: string) {
     let reversedBits = binaryValue.split("").reverse();
     let decimal = 0;
     for (const [bitIndex, bit] of reversedBits.entries()) {
@@ -9,7 +10,7 @@ function parseToDecimal(binaryValue: string) {
     return decimal;
 }
 
-function parseToBinary(value: string) {
+function parseStringToBinary(value: string) {
     let decimalValue = parseInt(value);
     let bitArray: number[] = [];
     while (decimalValue > 1) {
@@ -20,4 +21,10 @@ function parseToBinary(value: string) {
     return bitArray.reverse().join('')
 }
 
-export {parseToDecimal, parseToBinary};
+function parseTimeToString({ minutes, seconds }: Time): string {
+    const makeRepr = (v: number) => v >= 10 ? "" + v : "0" + v;
+  
+    return makeRepr(minutes) + " : " + makeRepr(seconds)
+  }
+  
+export {parseBinaryToDecimal, parseStringToBinary, parseTimeToString};
