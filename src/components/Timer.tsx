@@ -1,6 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Time } from "../types/types";
+import ButtonWithIcon from "./ButtonWithIcon";
 import TimerDisplay from "./TimerDisplay";
+import { IoPlay, IoStop, IoPlaySkipForward } from "react-icons/io5";
 
 function decreaseTime(prevTime: Time): Time {
   let newSeconds = prevTime.seconds === 0 ? 59 : prevTime.seconds - 1;
@@ -25,8 +27,7 @@ const Timer: React.FC<TimerProps> = ({ startTime, onTimersEnd }) => {
     setTime((prevTime) => {
       let newTime = decreaseTime(prevTime);
       if (newTime.minutes === 0 && newTime.seconds === 0) {
-        stop();
-        if (onTimersEnd) onTimersEnd();
+        endTimer();
       }
       return newTime;
     });
@@ -38,12 +39,42 @@ const Timer: React.FC<TimerProps> = ({ startTime, onTimersEnd }) => {
 
   const stop = () => {
     setTimer((prevTimer) => {
-      if (prevTimer) {
-        clearInterval(prevTimer);
-      }
+      if (prevTimer) clearInterval(prevTimer);
       return undefined;
     });
   };
+
+  const endTimer = () => {
+    stop();
+    if (onTimersEnd) onTimersEnd();
+  };
+
+  let startPauseButton: JSX.Element = <></>;
+  if (timer) {
+    startPauseButton = (
+      <ButtonWithIcon icon={<IoStop />} onClick={stop}>
+        Pause
+      </ButtonWithIcon>
+    );
+  } else if (time === startTime) {
+    startPauseButton = (
+      <ButtonWithIcon icon={<IoPlay />} onClick={run}>
+        Start
+      </ButtonWithIcon>
+    );
+  } else {
+    startPauseButton = (
+      <ButtonWithIcon icon={<IoPlay />} onClick={run}>
+        Resume
+      </ButtonWithIcon>
+    );
+  }
+
+  let skipButton = (
+    <ButtonWithIcon icon={<IoPlaySkipForward />} onClick={endTimer}>
+      Skip
+    </ButtonWithIcon>
+  );
 
   return (
     <div>
@@ -52,8 +83,8 @@ const Timer: React.FC<TimerProps> = ({ startTime, onTimersEnd }) => {
         seconds={time.seconds}
       ></TimerDisplay>
       <br />
-      <button onClick={run}> Start Timer</button>
-      <button onClick={stop}> Pause Timer </button>
+      {startPauseButton}
+      {skipButton}
     </div>
   );
 };
