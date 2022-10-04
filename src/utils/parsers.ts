@@ -1,4 +1,4 @@
-import { Time } from "../types/types";
+import { Time } from "../types";
 
 function parseBinaryToDecimal(binaryValue: string) {
     let reversedBits = binaryValue.split("").reverse();

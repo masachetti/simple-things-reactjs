@@ -1,3 +1,8 @@
-import {Time} from "./types"
+type Time = {
+  minutes: number,
+  seconds: number
+}
 
-export type {Time};
+type PomodoroStates = "work" | "s-break" | "l-break";
+
+export type { Time, PomodoroStates };
