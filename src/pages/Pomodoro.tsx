@@ -1,5 +1,6 @@
-import React, { useState } from 'react'
-import Timer from '../components/pomodoro/timer'
+import React, { useState } from "react";
+import { Timer, PomodoroStateView } from "../components/pomodoro";
+import { PomodoroStates, Time } from "../types";
 
 /*
 Features:
@@ -31,16 +32,57 @@ Components:
 - Work Cycles counter
 */
 
+type Props = {
+  sprintsUntilLongBreak: number;
+  times: { [Key in PomodoroStates]: Time };
+};
 
-const Pomodoro: React.FC = () => {
-  return (
-    <div>
-        Pomodoro
-        <br />
-        <Timer startTime={{minutes:25, seconds:0}} onTimersEnd={()=> console.log("Timers end!")}></Timer>
-        <br />
-    </div>
-  )
+interface State {
+  pomodoroState: PomodoroStates;
+  sprintCount: number;
+  longBreakCountDown: number;
 }
 
-export default Pomodoro
+const Pomodoro: React.FC<Props> = ({ sprintsUntilLongBreak, times }) => {
+  const [state, setState] = useState<State>({
+    pomodoroState: "work",
+    sprintCount: 0,
+    longBreakCountDown: sprintsUntilLongBreak,
+  });
+
+  const nextState = () => {
+    setState((prevState) => {
+      if (prevState.pomodoroState === "work") {
+        return {
+          ...prevState,
+          pomodoroState:
+            prevState.longBreakCountDown === 0 ? "l-break" : "s-break",
+        };
+      } else {
+        let cd = prevState.longBreakCountDown;
+        let newCountDownValue = cd ? cd - 1 : sprintsUntilLongBreak;
+        return {
+          pomodoroState: "work",
+          sprintCount: prevState.sprintCount + 1,
+          longBreakCountDown: newCountDownValue,
+        };
+      }
+    });
+  };
+  return (
+    <div>
+      <PomodoroStateView
+        pomodoroState={state.pomodoroState}
+      ></PomodoroStateView>
+      {state.sprintCount}
+      <br />
+      <Timer
+        startTime={times[state.pomodoroState]}
+        onTimersEnd={() => nextState()}
+      ></Timer>
+      <br />
+    </div>
+  );
+};
+
+export default Pomodoro;
