@@ -1,9 +1,9 @@
 import React from 'react';
 import './App.css';
-import BinToDec from './pages/BinToDec';
-import Pomodoro from './pages/Pomodoro';
+import BinToDec from './pages/bin-to-dec';
+import Pomodoro from './pages/pomodoro';
 
-function App() {
+function App() { 
   return (
     // <BinToDec/>
     <Pomodoro></Pomodoro>

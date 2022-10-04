@@ -1,6 +1,6 @@
 import React from "react";
-import { Time } from "../types/types";
-import { parseTimeToString } from "../utils/parsers";
+import { Time } from "../../types";
+import { parseTimeToString } from "../../utils/parsers";
 
 
 const TimerDisplay: React.FC<Time> = ({ minutes, seconds }) => {

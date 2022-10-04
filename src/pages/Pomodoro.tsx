@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
-import Timer from '../components/Timer'
-import TimerDisplay from '../components/TimerDisplay'
+import Timer from '../components/pomodoro/timer'
 
 /*
 Features:
@@ -22,7 +21,7 @@ Features:
             - Type of song
     
 Components:
-- Timer
+- Timer 
 - Settings Bar
     - Reset button
     - Seetings button
@@ -38,8 +37,7 @@ const Pomodoro: React.FC = () => {
     <div>
         Pomodoro
         <br />
-        {/* <TimerDisplay minutes={25} seconds={0}></TimerDisplay> */}
-        <Timer startTime={{minutes:0, seconds:5}} onTimersEnd={()=> console.log("Timers end!")}></Timer>
+        <Timer startTime={{minutes:25, seconds:0}} onTimersEnd={()=> console.log("Timers end!")}></Timer>
         <br />
     </div>
   )

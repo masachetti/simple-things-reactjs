@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { Time } from "../types/types";
-import ButtonWithIcon from "./ButtonWithIcon";
-import TimerDisplay from "./TimerDisplay";
+import { Time } from "../../types/types";
+import ButtonWithIcon from "../shared/button-with-icon";
+import TimerDisplay from "./timer-display";
 import { IoPlay, IoStop, IoPlaySkipForward } from "react-icons/io5";
 
 function decreaseTime(prevTime: Time): Time {
